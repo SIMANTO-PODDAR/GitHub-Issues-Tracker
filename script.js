@@ -2,7 +2,7 @@
 const allIssueParent = document.getElementById('all-issue-p');
 const openIssueParent = document.getElementById('open-issue-p');
 const closedIssueParent = document.getElementById('closed-issue-p');
-
+const topBarCounter = document.getElementById('top-bar-counter');
 
 // Get Top Btn 
 const allBtn = document.getElementById('btn-all');
@@ -11,6 +11,8 @@ const closedBtn = document.getElementById('btn-closed');
 
 // function for Filter & color activeBtn
 function filter(id, id2) {
+    loadingSpinnerS();
+
     allBtn.classList.remove('btn-primary');
     openBtn.classList.remove('btn-primary');
     closedBtn.classList.remove('btn-primary');
@@ -23,6 +25,8 @@ function filter(id, id2) {
     const activeBtn = document.getElementById(id).classList.add('btn-primary');
     const activeParent = document.getElementById(id2).classList.remove('hidden');
 
+    allIssue();
+    loadingSpinnerH();
 }
 
 
@@ -39,7 +43,11 @@ function displayAllIssues(data) {
     allIssueParent.innerHTML = '';
     openIssueParent.innerHTML = '';
     closedIssueParent.innerHTML = '';
-    
+
+    let allIssueCount = 0;
+    let openIssueCount = 0;
+    let closedIssueCount = 0;
+
     data.forEach(issue => {
         // 1 Create Element
         let issueDiv1 = document.createElement('div');
@@ -235,15 +243,21 @@ function displayAllIssues(data) {
 
         if (issue.status == "open") {
             openIssueParent.appendChild(issueDiv2);
+            allIssueCount++;
+            openIssueCount++;;
         }
 
         if (issue.status == "closed") {
             closedIssueParent.appendChild(issueDiv3);
+            allIssueCount++;
+            closedIssueCount++;
+
         }
 
         loadingSpinnerH();
     });
 
+    topBarCounterF(allIssueCount,openIssueCount,closedIssueCount);
 }
 
 
@@ -261,7 +275,18 @@ function loadingSpinnerH() {
     spinner.classList.add('hidden');
 }
 
+function topBarCounterF(a,o,c) {
 
+    if (!allIssueParent.classList.contains('hidden')) {
+        topBarCounter.innerText = a;
+    }
+    if (!openIssueParent.classList.contains('hidden')) {
+        topBarCounter.innerText = o;
+    }
+    if (!closedIssueParent.classList.contains('hidden')) {
+        topBarCounter.innerText = c;
+    }
+}
 
 
 
