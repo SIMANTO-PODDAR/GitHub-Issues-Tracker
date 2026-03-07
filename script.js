@@ -58,7 +58,7 @@ function displayAllIssues(data) {
         // 2 Set HTML
         issueDiv1.innerHTML = `
                                 <div
-                            class="w-[320px] h-80 border-t-3 shadow-md outline-[0.5px] rounded-xl ${issue.status == "open" ? 'outline-green-500 border-green-500' : 'outline-fuchsia-800 border-fuchsia-800'} bg-sky-50" onclick="modalSet(${issue.id}) ; my_modal_1.showModal()">
+                            class="w-[320px] h-80 border-t-3 shadow-md outline-[0.5px] rounded-xl ${issue.status == "open" ? 'outline-green-500 border-green-500' : 'outline-fuchsia-800 border-fuchsia-800'} bg-sky-50" onclick="modalSet(${issue.id});">
                             <!-- Card -->
 
                             <div class="p-3">
@@ -118,7 +118,7 @@ function displayAllIssues(data) {
         `
         issueDiv2.innerHTML = `
                                 <div
-                            class="w-[320px] h-80 border-t-3 shadow-md outline-[0.5px] rounded-xl ${issue.status == "open" ? 'outline-green-500 border-green-500' : 'outline-fuchsia-800 border-fuchsia-800'} bg-sky-50" onclick="modalSet(${issue.id}) ; my_modal_1.showModal()">
+                            class="w-[320px] h-80 border-t-3 shadow-md outline-[0.5px] rounded-xl ${issue.status == "open" ? 'outline-green-500 border-green-500' : 'outline-fuchsia-800 border-fuchsia-800'} bg-sky-50" onclick="modalSet(${issue.id})">
                             <!-- Card -->
 
                             <div class="p-3">
@@ -178,7 +178,7 @@ function displayAllIssues(data) {
         `
         issueDiv3.innerHTML = `
                                 <div
-                            class="w-[320px] h-80 border-t-3 shadow-md outline-[0.5px] rounded-xl ${issue.status == "open" ? 'outline-green-500 border-green-500' : 'outline-fuchsia-800 border-fuchsia-800'} bg-sky-50" onclick="modalSet(${issue.id}) ; my_modal_1.showModal()">
+                            class="w-[320px] h-80 border-t-3 shadow-md outline-[0.5px] rounded-xl ${issue.status == "open" ? 'outline-green-500 border-green-500' : 'outline-fuchsia-800 border-fuchsia-800'} bg-sky-50" onclick="modalSet(${issue.id})">
                             <!-- Card -->
 
                             <div class="p-3">
@@ -291,51 +291,82 @@ function topBarCounterF(a, o, c) {
 
 // function for Modal
 function modalSet(id) {
-
-alert(`btn id ; ${id}`)
-
-
-    modal.innerHTML = `
-    <dialog id="my_modal_1" class="modal">
-            <div class="modal-box">
-                <h3 class="text-lg font-bold">Hello! This modal works with a hidden checkbox!</h3>
-                <div class="flex">
-                    <div class="w-24 mr-2 flex justify-center items-center bg-emerald-300 rounded-2xl">Status</div>
-                    <p>
-                        <span class="rounded-full text-[6px]"><i class="fa-solid fa-circle mx-2"></i></span>
-                        Opened by
-                        Name
-                        <span class="rounded-full text-[6px]"><i class="fa-solid fa-circle mx-2"></i></span>
-                        Date
-                    </p>
-                </div>
-                <div class="my-1.5 pt-1.5 flex mt-7">
-                    <div class="flex p-1 ml-1 bg-red-100 text-red-700
-                        outline-red-500 rounded-2xl w-16 items-center justify-center outline-1 ">
-                        <i class=" fa-solid fa-bug"></i>
-                        <p class="text-[12px]">BUG</p>
-                    </div>
-
-                    <div class="flex p-1 ml-1 bg-yellow-100
-                        text-yellow-700 outline-yellow-500 rounded-2xl w-40 outline-1  items-center justify-center">
-                        <i class="fa-solid fa-life-ring"></i>
-                        <p class="text-[12px]">HELP WANTED</p>
-                    </div>
-                </div>
-                <p class="py-4">This modal works with a hidden checkbox!</p>
-                <div class="p-3 bg-sky-300/30 flex justify-around rounded-2xl">
-                    <div>Assignee: <br> <span>Name</span></div>
-                    <div>Priority: <br> <span class="w-20 h-6 pl-1.5 bg-yellow-200 rounded-2xl">issue.priority</span>
-                    </div>
-                </div>
-                <form method="dialog" class=" flex justify-end mt-3.5">
-                    <button class="btn btn-primary">Close</button>
-                </form>
-            </div>
-        </dialog>
-    
-    `
+    fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
+        .then(res => res.json())
+        .then(crd => modalHtml(crd.data))
 }
+
+
+function modalHtml(crd) {
+    modal.innerHTML = ''
+    let div = document.createElement('div');
+
+    div.innerHTML = `
+<dialog id="my_modal_1" class="modal">
+        <div class="modal-box">
+            <h3 class="text-lg font-bold">${crd.title}</h3>
+            <div class="flex">
+                <div class="w-24 mr-2 flex justify-center items-center bg-emerald-300 rounded-2xl">${crd.status}</div>
+                <p class="text-[13px]">
+                    <span class="rounded-full text-[6px]"><i class="fa-solid fa-circle mx-2"></i></span>
+                    Opened by
+                    ${crd.author}
+                    <span class="rounded-full text-[6px]"><i class="fa-solid fa-circle mx-2"></i></span>
+                    ${crd.updatedAt}
+                </p>
+            </div>
+
+            <div class="my-1.5 pt-1.5 flex mt-7"> 
+
+                <div
+                    class=" ${crd.labels.includes("bug") ? 'flex' : 'hidden'}   p-1 ml-1 bg-red-100 text-red-700 outline-red-500 rounded-2xl w-16  items-center justify-center outline-1 ">
+                    <i class="fa-solid fa-bug"></i>
+                    <p class="text-[12px]">BUG</p>
+                </div>
+                <div
+                    class=" ${crd.labels.includes("help wanted") ? 'flex' : 'hidden'} p-1 ml-1 bg-yellow-100 text-yellow-700 outline-yellow-500 rounded-2xl w-40 outline-1 flex items-center justify-center">
+                    <i class="fa-solid fa-life-ring"></i>
+                    <p class="text-[12px]">HELP WANTED</p>
+                </div>
+                <div
+                    class="  ${crd.labels.includes("enhancement") ? 'flex' : 'hidden'} p-1 ml-1 bg-green-100 text-green-700 outline-green-500 rounded-2xl w-40 outline-1 flex items-center justify-center">
+                    <i class="fa-solid fa-arrow-up-right-dots"></i>
+                    <p class="text-[12px]">ENHANCEMENT </p>
+                </div>
+                <div
+                    class="  ${crd.labels.includes("documentation") ? 'flex' : 'hidden'} p-1 ml-1 bg-green-100 text-green-700 outline-green-500 rounded-2xl w-40 outline-1 flex items-center justify-center">
+                    <i class="fa-brands fa-readme"></i>
+                    <p class="text-[12px]">DOCUMENTATION</p>
+                </div>
+                <div
+                    class="  ${crd.labels.includes("good first issue") ? 'flex' : 'hidden'} p-1 ml-1 bg-yellow-100 text-yellow-700 outline-yellow-500 rounded-2xl w-40 outline-1 flex items-center justify-center">
+                    <i class="fa-solid fa-file-circle-exclamation "></i>
+                    <p class="text-[12px]"> GOOD FIRST ISSUE</p>
+                </div>
+                
+            </div>
+
+            <p class="py-4">${crd.description}</p>
+            <div class="p-3 bg-sky-300/30 flex justify-around rounded-2xl">
+                <div>Assignee: <br> <span class="font-black">${crd.assignee}</span></div>
+                <div>Priority: <br> <span class="w-20 h-6 px-1.5 bg-yellow-200 rounded-2xl">${crd.priority}</span>
+                </div>
+            </div>
+            <form method="dialog" class=" flex justify-end mt-3.5">
+                <button class="btn btn-primary">Close</button>
+            </form>
+        </div>
+    </dialog>
+
+`
+
+
+    modal.appendChild(div);
+
+    my_modal_1.showModal();
+}
+
+
 
 // Cll All Btn
 allBtn.addEventListener('click', function () {
