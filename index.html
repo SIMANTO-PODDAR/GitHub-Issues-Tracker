@@ -25,7 +25,7 @@
 <body class="max-w-[1600px] mx-auto">
 
     <main>
-        <section id="signIn" class="min-h-screen flex hidden items-center justify-center "> <!-- Sign in Section -->
+        <section id="signIn" class="min-h-screen flex  items-center justify-center "> <!-- Sign in Section -->
 
             <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 grid gap-3.5">
                 <div class="img-text-div flex flex-col items-center">
@@ -46,136 +46,11 @@
             </fieldset>
 
         </section> <!-- END Sign in Section -->
-
-        <section id="app-section" class="  "> <!-- ⚠️ ADD hidden --> <!-- Main App -->
-
-            <nav class="flex justify-between p-2.5 bg-amber-50 rounded-2xl"> <!-- Nav Section -->
-                <div class=" flex align-middle">
-                    <img class="h-9 w-9" src="./img/github-logo.png" alt="github-logo">
-                    <h1 class="text-2xl font-bold ml-1">GitHub Issues Tracker</h1>
-                </div>
-
-                <div class="flex">
-                    <label class="input mr-1.5">
-                        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
-                                stroke="currentColor">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <path d="m21 21-4.3-4.3"></path>
-                            </g>
-                        </svg>
-                        <input type="search" required placeholder="Search issues..." />
-                    </label>
-                    <button class="btn rounded-[5px] btn-primary">+ New Issue</button>
-                </div>
-                </div>
-
-            </nav><!-- END Nav Section -->
-
-
-            <section class="max-w-[1400px] mx-auto"> <!-- Formatting Section-->
-
-                <section class="mt-[50px] flex gap-2 bg-amber-50 p-6 rounded-2xl"> <!-- Button Section -->
-
-                    <button onclick="filter('btn-all')" id="btn-all" class="btn w-[120px] btn-primary">All</button>
-                    <button onclick="filter('btn-open')" id="btn-open" class="btn w-[120px]">Open</button>
-                    <button onclick="filter('btn-closed')" id="btn-closed" class="btn w-[120px]">Closed</button>
-                </section> <!-- END Button Section -->
-
-                <section class="mt-5 bg-amber-50 rounded-2xl p-6">
-                    <!-- All Issues Section -->
-
-                    <section class="flex justify-between items-center "> <!-- Issue Top Bar-->
-
-                        <div class="flex items-center"> <!-- Top Bar Icon & Txt -->
-                            <div class=" w-10 h-10 bg-pink-200 rounded-full flex items-center justify-center "> <img
-                                    class="w-8 h-8" src="./img/Aperture.png" alt=""></div>
-
-                            <div class="ml-2">
-                                <h1 class="text-xl font-bold"> <span>50</span> Issues</h1>
-                                <p>Track and manage your project issues</p>
-                            </div>
-
-                        </div><!-- END Top Bar Icon & Txt -->
-
-                        <div class="flex font-bold"> <!-- Top Status -->
-                            <div class="flex mr-1.5"><i
-                                    class="fa-solid fa-circle text-[10px] pt-1 m-1 text-green-500"></i>
-                                <p>Open</p>
-                            </div>
-
-                            <div class="flex"><i class="fa-solid fa-circle text-[10px] pt-1 m-1 text-fuchsia-800"></i>
-                                <p>Closed</p>
-                            </div>
-                        </div> <!-- END Top Status -->
-
-                    </section><!-- END Issue Top Bar-->
-
-                    <div class="divider"></div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 justify-items-center">
-                        <!-- All Issue Cards-->
-
-
-                        <div class="w-[320px] h-80 border-t-3 outline-1 rounded-xl bg-sky-50 border-emerald-500 outline-emerald-300"> <!-- card -->
-
-                            <div class="p-3">
-
-                                <div class="flex justify-between mb-1">
-                                    <span class="w-5 h-5 bg-emerald-300 rounded-full"> </span>
-                                    <span class="w-20 h-6 pl-1.5 bg-yellow-200 rounded-2xl" >PRIORITY</span>
-                                </div>
-                                
-                                <h1 class="font-bold text-xl my-1.5">Fix navigation menu on mobile devices</h1>
-                                
-                                <p class="mb-3">The navigation menu doesn't collapse properly on mobile devices...</p>
-                                
-                                <div class="my-1.5 pt-1.5 flex">
-                                    <div class="p-1 ml-1 bg-red-100 text-red-700 outline-red-500 rounded-2xl w-16 flex items-center justify-center outline-1 "><i class="fa-solid fa-bug"></i> <p>BUG</p> </div>
-                                    
-                                    <div class=" hidden p-1 ml-1 bg-yellow-100 text-yellow-700 outline-yellow-500 rounded-2xl w-40 outline-1 flex items-center justify-center"><i class="fa-solid fa-life-ring"></i> <p>HELP WANTED</p> </div>
-                                    
-                                    <div class="p-1 ml-1 bg-green-100 text-green-700 outline-green-500 rounded-2xl w-40 outline-1 flex items-center justify-center"><i class="fa-solid fa-arrow-up-right-dots"></i> <p>ENHANCEMENT </p> </div>
-                                    
-                                </div>
-
-                            </div>
-                                
-                            <div class="divider my-2"></div>
-
-                            <div class="p-3">
-                                <p>#1by john_doe</p>
-                                <p class="pb-0.5">1/15/2024</p>
-                            </div>
-
-                        </div> <!-- END 1 card -->
-
-
-
-                    </div> <!-- END All Issue Cards-->
-
-
-                </section> <!-- END All Issues Section -->
-
-
-
-            </section> <!-- END Formatting Section-->
-        </section> <!-- END Main App -->
     </main>
 
-
-
-
-
-
-
-
-
-
-
-    </script>
     <!-- JS link  -->
-    <script src="./script.js"></script>
+    <script src="./sign-in.js"></script>
+
 </body>
 
 </html>
