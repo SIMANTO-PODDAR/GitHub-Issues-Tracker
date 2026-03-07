@@ -23,6 +23,55 @@
 
 <body class="max-w-[1600px] mx-auto">
 
+    <section> <!--  modal -->
+
+        <!-- The button to open modal -->
+        <label for="my_modal_6" class="btn">open modal</label>
+
+        <!-- Put this part before body tag -->
+        <input type="checkbox" id="my_modal_6" class="modal-toggle" />
+        <div class="modal" role="dialog">
+            <div class="modal-box">
+                <h3 class="text-lg font-bold">Hello! This modal works with a hidden checkbox!</h3>
+                <div class="flex">
+                    <div class="w-24 mr-2 flex justify-center items-center bg-emerald-300 rounded-2xl">Status</div>
+                    <p>
+                        <span class="rounded-full text-[6px]"><i class="fa-solid fa-circle mx-2"></i></span>
+                        Opened by
+                        Name
+                        <span class="rounded-full text-[6px]"><i class="fa-solid fa-circle mx-2"></i></span>
+                        Date
+                    </p>
+                </div>
+                <div class="my-1.5 pt-1.5 flex mt-7">
+                    <div class="flex p-1 ml-1 bg-red-100 text-red-700
+                        outline-red-500 rounded-2xl w-16 items-center justify-center outline-1 ">
+                        <i class=" fa-solid fa-bug"></i>
+                        <p class="text-[12px]">BUG</p>
+                    </div>
+
+                    <div class="flex p-1 ml-1 bg-yellow-100
+                        text-yellow-700 outline-yellow-500 rounded-2xl w-40 outline-1  items-center justify-center">
+                        <i class="fa-solid fa-life-ring"></i>
+                        <p class="text-[12px]">HELP WANTED</p>
+                    </div>
+                </div>
+                <p class="py-4">This modal works with a hidden checkbox!</p>
+                <div class="p-3 bg-sky-300/30 flex justify-around rounded-2xl">
+                    <div>Assignee: <br> <span>Name</span></div>
+                    <div>Priority: <br> <span class="w-20 h-6 pl-1.5 bg-yellow-200 rounded-2xl">issue.priority</span>
+                    </div>
+                </div>
+
+                <div class="modal-action">
+                    <label for="my_modal_6" class="btn btn-primary">Close</label>
+                </div>
+            </div>
+        </div>
+        </div>
+
+    </section>
+
     <main>
 
         <section id="app-section"> <!-- Main App -->
@@ -55,9 +104,12 @@
 
                 <section class="mt-[50px] flex gap-2 bg-amber-50 p-6 rounded-2xl"> <!-- Button Section -->
 
-                    <button onclick="filter('btn-all'  , 'all-issue-p')" id="btn-all" class="btn w-[120px] btn-primary">All</button>
-                    <button onclick="filter('btn-open' , 'open-issue-p')" id="btn-open" class="btn w-[120px]">Open</button>
-                    <button onclick="filter('btn-closed' , 'closed-issue-p')" id="btn-closed" class="btn w-[120px]">Closed</button>
+                    <button onclick="filter('btn-all'  , 'all-issue-p')" id="btn-all"
+                        class="btn w-[120px] btn-primary">All</button>
+                    <button onclick="filter('btn-open' , 'open-issue-p')" id="btn-open"
+                        class="btn w-[120px]">Open</button>
+                    <button onclick="filter('btn-closed' , 'closed-issue-p')" id="btn-closed"
+                        class="btn w-[120px]">Closed</button>
                 </section> <!-- END Button Section -->
 
                 <section class="mt-5 bg-amber-50 rounded-2xl p-6">
@@ -66,16 +118,16 @@
                     <section id="loading-spinner" class="hidden items-center justify-center"> <!-- loading-spinner -->
                         <span class="loading loading-spinner loading-xl"></span>
                     </section>
-                    
+
                     <section class="flex justify-between items-center "> <!-- Issue Top Bar-->
-                        
+
 
                         <div class="flex items-center"> <!-- Top Bar Icon & Txt -->
                             <div class=" w-10 h-10 bg-pink-200 rounded-full flex items-center justify-center "> <img
                                     class="w-8 h-8" src="./img/Aperture.png" alt=""></div>
 
                             <div class="ml-2">
-                                <h1 class="text-xl font-bold"> <span id="top-bar-counter" >00</span> Issues</h1>
+                                <h1 class="text-xl font-bold"> <span id="top-bar-counter">00</span> Issues</h1>
                                 <p>Track and manage your project issues</p>
                             </div>
 
