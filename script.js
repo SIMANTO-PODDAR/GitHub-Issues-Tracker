@@ -7,7 +7,7 @@ const closedIssueParent = document.getElementById('closed-issue-p');
 const topBarCounter = document.getElementById('top-bar-counter');
 const modal = document.getElementById('modal');
 
-const searchInput = document.getElementById('search-input'); 
+const searchInput = document.getElementById('search-input');
 const search = document.getElementById('top-search');
 
 // Get Top Btn 
@@ -374,11 +374,12 @@ function modalHtml(crd) {
 }
 
 // function search
-function searchIsu(){
-   let inputValue = searchInput.value;
+function searchIsu() {
+    loadingSpinnerS();
+    let inputValue = searchInput.value;
 
-   fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${inputValue}`)
-   .then(res => res.json())
+    fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${inputValue}`)
+        .then(res => res.json())
         .then(issueData => searchRI(issueData.data));
 }
 
@@ -386,6 +387,10 @@ function searchRI(data) {
     allIssueD.classList.add('hidden');
     searchIssueParent.classList.remove('hidden');
     searchIssueParent.innerHTML = '';
+
+    allBtn.classList.remove('btn-primary');
+    openBtn.classList.remove('btn-primary');
+    closedBtn.classList.remove('btn-primary');
 
     data.forEach(issue => {
         // 1 Create Element
