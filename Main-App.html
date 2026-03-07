@@ -55,9 +55,9 @@
 
                 <section class="mt-[50px] flex gap-2 bg-amber-50 p-6 rounded-2xl"> <!-- Button Section -->
 
-                    <button onclick="filter('btn-all')" id="btn-all" class="btn w-[120px] btn-primary">All</button>
-                    <button onclick="filter('btn-open')" id="btn-open" class="btn w-[120px]">Open</button>
-                    <button onclick="filter('btn-closed')" id="btn-closed" class="btn w-[120px]">Closed</button>
+                    <button onclick="filter('btn-all'  , 'all-issue-p')" id="btn-all" class="btn w-[120px] btn-primary">All</button>
+                    <button onclick="filter('btn-open' , 'open-issue-p')" id="btn-open" class="btn w-[120px]">Open</button>
+                    <button onclick="filter('btn-closed' , 'closed-issue-p')" id="btn-closed" class="btn w-[120px]">Closed</button>
                 </section> <!-- END Button Section -->
 
                 <section class="mt-5 bg-amber-50 rounded-2xl p-6">
@@ -96,11 +96,26 @@
 
                     <div class="divider"></div>
 
+
                     <div id="all-issue-p"
                         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-6 justify-items-center">
                         <!-- All Issue Cards-->
 
                     </div> <!-- END All Issue Cards-->
+
+
+                    <div id="open-issue-p"
+                        class="grid hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-6 justify-items-center">
+                        <!-- Open Issue Cards-->
+
+                    </div> <!-- END Open Issue Cards-->
+
+
+                    <div id="closed-issue-p"
+                        class="grid hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-6 justify-items-center">
+                        <!-- Closed Issue Cards-->
+
+                    </div> <!-- END Closed Issue Cards-->
 
 
                 </section> <!-- END All Issues Section -->
