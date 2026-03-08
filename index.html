@@ -25,7 +25,7 @@
     <main>
         <section id="signIn" class="min-h-screen flex  items-center justify-center "> <!-- Sign in Section -->
 
-            <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 grid gap-3.5 shadow-md">
+            <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-[450px] border p-4 grid gap-3.5 shadow-md">
                 <div class="img-text-div flex flex-col items-center">
                     <div>
                         <img class="h-[100px] w-[100px]" src="./img/github-logo.png" alt="github-logo">
@@ -35,12 +35,20 @@
                 </div>
 
                 <label class="label font-black text-[14px]">Username</label>
-                <input id="login-name" type="text" class="input" placeholder="Enter Username" />
+                <input id="login-name" type="text" class="input w-full" placeholder="Enter Username" />
 
                 <label class="label font-black text-[14px]">Password</label>
-                <input id="login-pas" type="password" class="input" placeholder="Enter Password" />
+                <input id="login-pas" type="password" class="input w-full" placeholder="Enter Password" />
 
                 <button class="btn btn-active btn-primary" onclick="validation()">Sign In</button>
+                <div class="divider">OR</div>
+                <div class="text-center">
+                    <p class="text-[12px]">Demo Credentials:</p>
+                    <div class="mt-2.5 text-[15px]">
+                        <h1><span class="font-bold">Username:</span> admin</h1>
+                        <h1><span class="font-bold">Password:</span> admin123</h1>
+                    </div>
+                </div>
             </fieldset>
 
         </section> <!-- END Sign in Section -->
