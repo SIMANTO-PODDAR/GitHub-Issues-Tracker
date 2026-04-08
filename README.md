@@ -1,40 +1,62 @@
-- 1️⃣ What is the difference between var, let, and const?
+# 🌟 GitHub Issues Tracker
 
-* ANS; the difference between var, let, and const are ,,,
+## 🔗 Live Demo (Netlify)
 
-       "var" is function-scoped and can re-declared and updated. Some times that makes errors.
-       "let" is block-scoped and we can updated but can not re-declared .
-       'const' is block-scoped and can't be updated or re-declared.
+👉 [View Live Project -> GitHub Issues Tracker](https://github-issue-tracker-by-simanto.netlify.app/)
 
+---
 
+## 📖 Overview
 
-- 2️⃣ What is the spread operator (...)?
+The **GitHub Issues Tracker** is a responsive web application that fetches and displays issue data from a REST API. It includes a functional login page, a main dashboard to view all issues, and features like filtering by status (Open/Closed), searching, and viewing detailed information through interactive modals.
 
-* ANS; Spread operator is the operator thats helps use to copy array and objects
-       without modify the real one.
+## 🖼️ Home Page Preview
 
+<img src="./img/sign-in-page.png" alt="sign-in-page"  width="266.5" height="314.5"> x
+<img src="./img/home-page.png" alt="home-page"  width="857.5" height="455.5">Home page
 
+## 🛠️ Technologies Used
 
-- 3️⃣ What is the difference between map(), filter(), and forEach()?
+* **HTML5:** For structuring the application.
+* **CSS3:** (Vanilla / Tailwind / DaisyUI) For styling and responsive design.
+* **Vanilla JavaScript (ES6+):** For DOM manipulation, API fetching, and logical operations.
+* **Fetch API:** For making asynchronous HTTP requests to the backend server.
 
-* ANS; Difference between map(), filter(), and forEach() are
+## ✨ Main Features
 
-      * map() runs a function on each element and return a new array,
-      * on the otherhand forEach() runs a function on each element but does not return a
-        new array.
-      * and filter() runs a function with a condition and creates a new array with elements
-        that pass the condition.
+* **Authentication:** A styled login page with default admin credentials.
+* **Dynamic Data Fetching:** Loads issue data dynamically from the provided API.
+* **Categorization (Tabs):** Filter issues easily using "All", "Open", and "Closed" tabs.
+* **Interactive UI:**
+  * Visual indicators for issue status (Green top border for Open, Purple for Closed).
+  * Active state styling for selected category buttons.
+  * Loading spinner during API data fetching.
+* **Search Functionality:** Instantly search through issues using keywords.
+* **Detail Modals:** Click on any issue card to view full details in a pop-up modal.
+* **Fully Responsive:** Optimized for both mobile and desktop views.
 
+## 📦 Dependencies
 
+This project uses CDN-based libraries:
 
-- 4️⃣ What is an arrow function?
+* Tailwind CSS  
+* DaisyUI  
+* Font Awesome  
 
-* ANS; An arrow function is a shorter way to write functions using  `=>` ,
-       we can not call arrow function before declaration .
+(No package installation required)
 
+## 🚀 How to Run Locally
 
+To run this project on your local machine, follow these steps:
 
-- 5️⃣ What are template literals?
+1. **Clone the repository**
 
-* ANS; Template literals means when we write strings using backticks ( ` ) that's called Template literals.
-       It's helps us to write variables inside strings and set multi-line innerHTML at once.
+2. **Open the project**
+
+3. **Login Credentials:**
+
+* Login using demo credentials
+* You will be redirected to the main app
+
+Username: admin <br/>
+Password: admin123
