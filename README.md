@@ -12,7 +12,7 @@ The **GitHub Issues Tracker** is a responsive web application that fetches and d
 
 ## 🖼️ Home Page Preview
 
-<img src="./img/sign-in-page.png" alt="sign-in-page"  width="266.5" height="314.5"> x
+<img src="./img/sign-in-page.png" alt="sign-in-page"  width="266.5" height="314.5">Sign in page
 <img src="./img/home-page.png" alt="home-page"  width="857.5" height="455.5">Home page
 
 ## 🛠️ Technologies Used
@@ -45,18 +45,21 @@ This project uses CDN-based libraries:
 
 (No package installation required)
 
-## 🚀 How to Run Locally
+### 🚀 How to Run Locally
 
-To run this project on your local machine, follow these steps:
+Follow these simple steps to set up the project on your computer:
 
-1. **Clone the repository**
+* **Step 1: Clone the Project** First, you need to get the code on your computer. Open your terminal or command prompt and run the `git clone` command with the repository link.
 
-2. **Open the project**
+* **Step 2: Enter the Folder** Once the download is finished, go inside the project folder using the `cd` command.
 
-3. **Login Credentials:**
+* **Step 3: Open the Project** Since this is a simple web project, you don't need to install anything special.
+  * If you use **VS Code**, just right-click on the `index.html` file and select **"Open with Live Server"**.
+  * Alternatively, you can simply find the `index.html` file in your folder and **double-click** it to open it in any browser (like Chrome or Brave).
 
-* Login using demo credentials
-* You will be redirected to the main app
+* **Step 4: Internet Connection** Make sure you are connected to the internet. The project uses an external API and CSS libraries that need a connection to load properly.
 
-Username: admin <br/>
-Password: admin123
+* **Step 5: Sign In** On the login page, use the demo credentials to enter the main dashboard:
+    > **Username:** `admin`  
+    > **Password:** `admin123`
+___
