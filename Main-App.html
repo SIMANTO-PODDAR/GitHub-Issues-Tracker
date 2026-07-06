@@ -1,159 +1,290 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark" class="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Github Issue Tracker</title>
+    <title>GitHub Issues Tracker - Developer Dashboard</title>
 
-    <!-- fav icon -->
+    <!-- Favicon -->
     <link rel="shortcut icon" href="./img/github-logo.png" type="image/x-icon">
 
-    <!-- daisyui & tailwindcss link  -->
+    <!-- Stylesheets (Tailwind CSS v4 & DaisyUI v5) -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="./index.css">
 
-    <!-- font awesome link  -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
 </head>
 
-<body class="max-w-[1600px] mx-auto">
+<body class="min-h-screen bg-slate-950 text-slate-100 relative overflow-x-hidden pb-12">
 
-    <main>
+    <!-- Ambient Background Blobs -->
+    <div class="absolute top-0 right-1/4 w-[350px] h-[350px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none animate-float"></div>
+    <div class="absolute bottom-1/4 left-1/4 w-[300px] h-[300px] bg-violet-600/10 rounded-full blur-[100px] pointer-events-none animate-float" style="animation-delay: -3s;"></div>
 
-        <section id="app-section"> <!-- Main App -->
+    <!-- Header Navigation -->
+    <nav class="sticky top-0 z-40 w-full glass-panel border-b border-slate-900/80 px-4 py-3.5 shadow-md">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            
+            <!-- Logo and Brand -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.reload();">
+                <div class="p-2 bg-slate-900/80 rounded-xl border border-slate-800">
+                    <img class="h-8 w-8 filter drop-shadow-[0_0_8px_rgba(99,102,241,0.4)]" src="./img/github-logo.png" alt="GitHub Logo">
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-tight bg-linear-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">
+                        GitHub Issues Tracker
+                    </h1>
+                    <p class="text-[10px] text-indigo-400 font-semibold uppercase tracking-wider">Pulse Dashboard</p>
+                </div>
+            </div>
 
-            <nav class="flex flex-col md:flex-row justify-between p-2.5 bg-amber-50 rounded-2xl"> <!-- Nav Section -->
-                <div class=" flex align-middle">
-                    <img class="h-9 w-9" src="./img/github-logo.png" alt="github-logo">
-                    <h1 class="text-2xl font-bold ml-1">GitHub Issues Tracker</h1>
+            <!-- Search Bar -->
+            <div class="flex w-full md:w-auto max-w-md items-center gap-2 flex-1 md:justify-center">
+                <div class="relative w-full max-w-sm flex items-center">
+                    <span class="absolute left-4 text-slate-400 text-sm">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                    <input id="search-input" type="search" placeholder="Search issues by keyword..." 
+                        class="w-full bg-slate-900/40 border border-slate-850 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none rounded-xl py-2.5 pl-11 pr-4 text-sm transition-all duration-200 text-slate-200 placeholder-slate-500" />
+                </div>
+                <button id="top-search" onclick="searchIsu()" class="btn btn-sm py-2 px-4 h-auto bg-indigo-600 hover:bg-indigo-500 text-white border-none rounded-xl font-semibold shadow-md active:scale-95 transition-all duration-200 cursor-pointer">
+                    Search
+                </button>
+            </div>
+
+            <!-- Utility Controls (No theme toggle, no add issue) -->
+            <div class="flex items-center gap-3">
+                <!-- Logout -->
+                <button onclick="logout()" class="btn btn-sm py-2 px-3 h-auto bg-slate-900/60 hover:bg-red-950/30 text-slate-400 hover:text-red-400 border border-slate-800/80 hover:border-red-500/20 rounded-xl font-semibold active:scale-95 transition-all duration-200 cursor-pointer" title="Sign Out">
+                    <i class="fa-solid fa-right-from-bracket text-xs"></i>
+                    <span class="text-xs hidden sm:inline">Logout</span>
+                </button>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 mt-8">
+
+        <!-- Statistics Panel -->
+        <section class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
+            <!-- Total Card -->
+            <div class="glass-panel border border-slate-800/60 p-5 rounded-2xl flex items-center justify-between shadow-lg relative overflow-hidden group">
+                <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-indigo-500/5 rounded-full blur-xl group-hover:bg-indigo-500/10 transition-colors duration-300"></div>
+                <div>
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Issues</p>
+                    <h3 id="stat-total" class="text-3xl font-extrabold text-white mt-1.5 font-display">00</h3>
+                    <div class="w-24 h-1.5 bg-indigo-950 rounded-full mt-3 overflow-hidden">
+                        <div class="h-full bg-indigo-500 rounded-full" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="p-3 bg-indigo-950/40 rounded-xl text-indigo-400 border border-indigo-500/20 text-xl shadow-inner">
+                    <i class="fa-solid fa-cubes"></i>
+                </div>
+            </div>
+
+            <!-- Open Card -->
+            <div class="glass-panel border border-slate-800/60 p-5 rounded-2xl flex items-center justify-between shadow-lg relative overflow-hidden group">
+                <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-emerald-500/5 rounded-full blur-xl group-hover:bg-emerald-500/10 transition-colors duration-300"></div>
+                <div>
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Active Open</p>
+                    <h3 id="stat-open" class="text-3xl font-extrabold text-emerald-400 mt-1.5 font-display">00</h3>
+                    <div class="w-24 h-1.5 bg-slate-900 rounded-full mt-3 overflow-hidden">
+                        <div id="stat-open-progress" class="h-full bg-emerald-500 rounded-full transition-all duration-500" style="width: 0%;"></div>
+                    </div>
+                </div>
+                <div class="p-3 bg-emerald-950/30 rounded-xl text-emerald-400 border border-emerald-500/20 text-xl shadow-inner">
+                    <i class="fa-solid fa-circle-dot"></i>
+                </div>
+            </div>
+
+            <!-- Closed Card -->
+            <div class="glass-panel border border-slate-800/60 p-5 rounded-2xl flex items-center justify-between shadow-lg relative overflow-hidden group">
+                <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-violet-500/5 rounded-full blur-xl group-hover:bg-violet-500/10 transition-colors duration-300"></div>
+                <div>
+                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Resolved Closed</p>
+                    <h3 id="stat-closed" class="text-3xl font-extrabold text-violet-400 mt-1.5 font-display">00</h3>
+                    <div class="w-24 h-1.5 bg-slate-900 rounded-full mt-3 overflow-hidden">
+                        <div id="stat-closed-progress" class="h-full bg-violet-500 rounded-full transition-all duration-500" style="width: 0%;"></div>
+                    </div>
+                </div>
+                <div class="p-3 bg-violet-950/30 rounded-xl text-violet-400 border border-violet-500/20 text-xl shadow-inner">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Wrapper Section -->
+        <section id="app-section" class="glass-panel border border-slate-800/80 rounded-2xl shadow-xl overflow-hidden">
+            
+            <!-- Toolbar & Controls -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-6 border-b border-slate-900/60 bg-slate-900/15">
+                
+                <!-- Category Filter Buttons -->
+                <div class="flex bg-slate-900/65 border border-slate-800/60 p-1 rounded-xl w-full sm:w-auto">
+                    <button onclick="filter('btn-all', 'all-issue-p')" id="btn-all"
+                        class="flex-1 sm:flex-initial py-2.5 px-6 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer">
+                        <i class="fa-solid fa-list-check text-xs"></i>
+                        <span>All</span>
+                    </button>
+                    <button onclick="filter('btn-open', 'open-issue-p')" id="btn-open"
+                        class="flex-1 sm:flex-initial py-2.5 px-6 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer">
+                        <i class="fa-solid fa-circle-dot text-emerald-500 text-xs"></i>
+                        <span>Open</span>
+                    </button>
+                    <button onclick="filter('btn-closed', 'closed-issue-p')" id="btn-closed"
+                        class="flex-1 sm:flex-initial py-2.5 px-6 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer">
+                        <i class="fa-solid fa-circle-check text-violet-500 text-xs"></i>
+                        <span>Closed</span>
+                    </button>
                 </div>
 
-                <div class="flex mt-3 md:mt-0">
-                    <label class="input mr-1.5">
-                        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
-                                stroke="currentColor">
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <path d="m21 21-4.3-4.3"></path>
-                            </g>
-                        </svg>
-                        <input id="search-input" type="search" required placeholder="Search issues..." />
-                    </label>
-                    <button id="top-search" class="btn rounded-[5px] btn-primary" onclick="searchIsu()">Search</button>
-                </div>
+                <!-- Info Header Status Indicator -->
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-indigo-950/40 border border-indigo-500/10 rounded-xl text-indigo-400">
+                        <i class="fa-solid fa-code-pull-request text-lg"></i>
+                    </div>
+                    <div>
+                        <div class="text-sm font-bold text-slate-100 flex items-center gap-1.5">
+                            <span id="top-bar-counter" class="text-indigo-400 font-display text-lg">0</span> Issues
+                        </div>
+                        <p class="text-xs text-slate-400">Track and manage repository issues</p>
+                    </div>
                 </div>
 
-            </nav><!-- END Nav Section -->
+            </div>
 
-
-            <section class="max-w-[1400px] mx-auto"> <!-- Formatting Section-->
-
-                <section class="mt-[50px] flex gap-2 bg-amber-50 p-6 rounded-2xl"> <!-- Button Section -->
-
-                    <button onclick="filter('btn-all'  , 'all-issue-p')" id="btn-all"
-                        class="btn w-[100px] md:w-[120px] btn-primary">All</button>
-                    <button onclick="filter('btn-open' , 'open-issue-p')" id="btn-open"
-                        class="btn w-[100px] md:w-[120px]">Open</button>
-                    <button onclick="filter('btn-closed' , 'closed-issue-p')" id="btn-closed"
-                        class="btn w-[100px] md:w-[120px]">Closed</button>
-                </section> <!-- END Button Section -->
-
-                <section id="all-issues-d" class="mt-5 bg-amber-50 rounded-2xl p-6">
-                    <!-- All Issues Section -->
-
-                    <section id="loading-spinner" class="hidden items-center justify-center"> <!-- loading-spinner -->
-                        <span class="loading loading-spinner loading-xl"></span>
-                    </section>
-
-                    <section class="flex justify-between items-center "> <!-- Issue Top Bar-->
-
-
-                        <div class="flex items-center"> <!-- Top Bar Icon & Txt -->
-                            <div class=" w-10 h-10 bg-pink-200 rounded-full flex items-center justify-center "> <img
-                                    class="w-8 h-8" src="./img/Aperture.png" alt=""></div>
-
-                            <div class="ml-2">
-                                <h1 class="text-xl font-bold"> <span id="top-bar-counter">00</span> Issues</h1>
-                                <p>Track and manage your project issues</p>
+            <!-- Issues Dashboard Panel -->
+            <div id="all-issues-d" class="p-6 min-h-[400px] relative">
+                
+                <!-- Skeleton Shimmer Loader -->
+                <section id="loading-spinner" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Skeleton Card 1 -->
+                    <div class="glass-panel border border-slate-900 rounded-xl p-5 h-72 flex flex-col justify-between overflow-hidden">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <div class="w-8 h-8 rounded-full shimmer"></div>
+                                <div class="w-16 h-5 rounded-full shimmer"></div>
                             </div>
-
-                        </div><!-- END Top Bar Icon & Txt -->
-
-                        <div class="flex font-bold"> <!-- Top Status -->
-                            <div class="flex mr-1.5"><i
-                                    class="fa-solid fa-circle text-[10px] pt-1 m-1 text-green-500"></i>
-                                <p>Open</p>
+                            <div class="w-3/4 h-6 rounded shimmer mb-3"></div>
+                            <div class="w-full h-4 rounded shimmer mb-2"></div>
+                            <div class="w-5/6 h-4 rounded shimmer mb-4"></div>
+                            <div class="flex gap-2">
+                                <div class="w-14 h-5 rounded-full shimmer"></div>
+                                <div class="w-20 h-5 rounded-full shimmer"></div>
                             </div>
-
-                            <div class="flex"><i class="fa-solid fa-circle text-[10px] pt-1 m-1 text-fuchsia-800"></i>
-                                <p>Closed</p>
-                            </div>
-                        </div> <!-- END Top Status -->
-
-                    </section><!-- END Issue Top Bar-->
-
-                    <div class="divider"></div>
-
-
-                    <div id="all-issue-p"
-                        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-6 justify-items-center">
-                        <!-- All Issue Cards-->
-
-                    </div> <!-- END All Issue Cards-->
-
-
-                    <div id="open-issue-p"
-                        class="grid hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-6 justify-items-center">
-                        <!-- Open Issue Cards-->
-
-                    </div> <!-- END Open Issue Cards-->
-
-
-                    <div id="closed-issue-p"
-                        class="grid hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-6 justify-items-center">
-                        <!-- Closed Issue Cards-->
-
-                    </div> <!-- END Closed Issue Cards-->
-
-
-
-                </section> <!-- END All Issues Section -->
-
-                <div id="search-issue-p"
-                    class="grid hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-6 justify-items-center mt-5 bg-amber-50 rounded-2xl p-6">
-                    <!-- search Issue Cards-->
-
-                </div> <!-- END search Issue Cards-->
-
-                <div id="no-search-issue" class="mt-3  p-4 hidden"> <!--  no data -->
-                    <div class="card bg-amber-100 min-w-11/12 h-[400px] pt-[50px]">
-
-                        <figure class="px-10 pt-10 ">
-                            <img src="./img/no-issue.png" alt="no-issue" class="rounded-xl pb-3" />
-                        </figure>
-
-                        <div class="card-body items-center text-center">
-                            <h2 class="card-title text-xl text-blue-900 font-bold ">No Results Found!</h2>
-                            <p class=" text-blue-950 text-xl"> Try Another Keyword. </p>
+                        </div>
+                        <div class="border-t border-slate-900 pt-4 flex justify-between">
+                            <div class="w-16 h-4 rounded shimmer"></div>
+                            <div class="w-24 h-4 rounded shimmer"></div>
                         </div>
                     </div>
+                    <!-- Skeleton Card 2 -->
+                    <div class="glass-panel border border-slate-900 rounded-xl p-5 h-72 flex flex-col justify-between overflow-hidden">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <div class="w-8 h-8 rounded-full shimmer"></div>
+                                <div class="w-16 h-5 rounded-full shimmer"></div>
+                            </div>
+                            <div class="w-2/3 h-6 rounded shimmer mb-3"></div>
+                            <div class="w-full h-4 rounded shimmer mb-2"></div>
+                            <div class="w-4/5 h-4 rounded shimmer mb-4"></div>
+                            <div class="flex gap-2">
+                                <div class="w-16 h-5 rounded-full shimmer"></div>
+                            </div>
+                        </div>
+                        <div class="border-t border-slate-900 pt-4 flex justify-between">
+                            <div class="w-12 h-4 rounded shimmer"></div>
+                            <div class="w-28 h-4 rounded shimmer"></div>
+                        </div>
+                    </div>
+                    <!-- Skeleton Card 3 -->
+                    <div class="glass-panel border border-slate-900 rounded-xl p-5 h-72 flex flex-col justify-between overflow-hidden">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <div class="w-8 h-8 rounded-full shimmer"></div>
+                                <div class="w-16 h-5 rounded-full shimmer"></div>
+                            </div>
+                            <div class="w-5/6 h-6 rounded shimmer mb-3"></div>
+                            <div class="w-full h-4 rounded shimmer mb-2"></div>
+                            <div class="w-3/4 h-4 rounded shimmer mb-4"></div>
+                            <div class="flex gap-2">
+                                <div class="w-14 h-5 rounded-full shimmer"></div>
+                                <div class="w-14 h-5 rounded-full shimmer"></div>
+                            </div>
+                        </div>
+                        <div class="border-t border-slate-900 pt-4 flex justify-between">
+                            <div class="w-20 h-4 rounded shimmer"></div>
+                            <div class="w-20 h-4 rounded shimmer"></div>
+                        </div>
+                    </div>
+                    <!-- Skeleton Card 4 -->
+                    <div class="glass-panel border border-slate-900 rounded-xl p-5 h-72 flex flex-col justify-between overflow-hidden">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <div class="w-8 h-8 rounded-full shimmer"></div>
+                                <div class="w-16 h-5 rounded-full shimmer"></div>
+                            </div>
+                            <div class="w-1/2 h-6 rounded shimmer mb-3"></div>
+                            <div class="w-full h-4 rounded shimmer mb-2"></div>
+                            <div class="w-5/6 h-4 rounded shimmer mb-4"></div>
+                            <div class="flex gap-2">
+                                <div class="w-20 h-5 rounded-full shimmer"></div>
+                            </div>
+                        </div>
+                        <div class="border-t border-slate-900 pt-4 flex justify-between">
+                            <div class="w-14 h-4 rounded shimmer"></div>
+                            <div class="w-24 h-4 rounded shimmer"></div>
+                        </div>
+                    </div>
+                </section>
 
+                <!-- Cards Grid - All Issues -->
+                <div id="all-issue-p" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-stretch">
                 </div>
 
+                <!-- Cards Grid - Open Issues -->
+                <div id="open-issue-p" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-stretch">
+                </div>
 
-            </section> <!-- END Formatting Section-->
-        </section> <!-- END Main App -->
+                <!-- Cards Grid - Closed Issues -->
+                <div id="closed-issue-p" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-stretch">
+                </div>
+
+            </div>
+
+            <!-- Issues Dashboard Panel - Search Results -->
+            <div id="search-issue-p" class="hidden p-6 min-h-[400px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-stretch">
+            </div>
+
+            <!-- Empty Search Results Panel -->
+            <div id="no-search-issue" class="hidden p-8 flex flex-col items-center justify-center min-h-[400px]">
+                <div class="p-6 bg-slate-900/40 border border-slate-800 rounded-full text-indigo-400 mb-4 animate-bounce">
+                    <i class="fa-regular fa-folder-open text-4xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-100">No Results Found</h3>
+                <p class="text-slate-400 text-sm mt-1 text-center max-w-xs">
+                    We couldn't find any issues matching your search terms. Try using other keywords.
+                </p>
+                <button onclick="clearSearch()" class="mt-5 px-5 py-2 bg-slate-800 hover:bg-slate-700 text-indigo-300 text-sm font-semibold rounded-xl border border-slate-750 transition-all duration-200 cursor-pointer">
+                    Clear Search
+                </button>
+            </div>
+
+        </section>
     </main>
 
-    <section id="modal"> <!-- Modal -->
+    <!-- Detail Modal -->
+    <section id="modal">
     </section>
 
-    <!-- JS link  -->
+    <!-- Main JavaScript Logic -->
     <script src="./script.js"></script>
 </body>
 
